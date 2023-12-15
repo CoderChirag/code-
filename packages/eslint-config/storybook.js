@@ -12,7 +12,11 @@ const project = resolve(process.cwd(), "tsconfig.json");
  */
 
 module.exports = {
+  env: { browser: true, es2020: true },
   extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:storybook/recommended",
     "plugin:mdx/recommended",
     ...[
@@ -22,10 +26,9 @@ module.exports = {
       "@vercel/style-guide/eslint/react",
     ].map(require.resolve),
   ],
-  parserOptions: {
-    project,
-  },
-  plugins: ["only-warn"],
+  ignorePatterns: ["dist", ".eslintrc.cjs"],
+  parserOptions: "@typescript-eslint/parser",
+  plugins: ["react-refresh", "only-warn"],
   globals: {
     React: true,
     JSX: true,
@@ -41,5 +44,9 @@ module.exports = {
   // add rules configurations here
   rules: {
     "import/no-default-export": "off",
+    "react-refresh/only-export-components": [
+      "warn",
+      { allowConstantExport: true },
+    ],
   },
 };

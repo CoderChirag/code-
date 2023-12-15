@@ -1,11 +1,10 @@
 {
-  "name": "codepp-ui",
+  "name": "@codepp-ui/button",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
-  "private": true,
   "license": "MIT",
   "files": [
     "dist/**"
@@ -20,9 +19,6 @@
     "packages/*",
     "../*"
   ],
-  "dependencies": {
-    "@codepp-ui/button": "*"
-  },
   "devDependencies": {
     "@codepp/eslint-config": "*",
     "@types/react": "^18.2.38",

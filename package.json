@@ -1,7 +1,12 @@
 {
+  "name": "codepp",
+  "description": "A cool looking code editor for web",
+  "author": "Chirag Jain <jain.chirag0174@gmail.com> (https://www.coderchirag.tech)",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "start": "turbo run start",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
@@ -17,7 +22,9 @@
   },
   "packageManager": "yarn@1.22.19",
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "app",
+    "packages/*",
+    "packages/ui/packages/*",
+    "storybook"
   ]
 }
