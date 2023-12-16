@@ -1,5 +1,5 @@
 {
-  "name": "@codepp-ui/button",
+  "name": "@codepp/hooks",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -10,22 +10,22 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.tsx",
-    "dev": "tsup src/index.tsx --watch",
+    "build": "tsup src/index.ts",
+    "dev": "tsup src/index.ts --watch",
     "lint": "eslint . --max-warnings 0",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
-  "workspaces": [
-    "packages/*",
-    "../*"
-  ],
+  "dependencies": {
+    "@codepp-ui/theme": "*",
+    "axios": "^1.6.2"
+  },
   "devDependencies": {
     "@codepp/eslint-config": "*",
+    "@codepp/tsconfig": "*",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
     "eslint": "^8.54.0",
     "react": "^18.2.0",
-    "@codepp/tsconfig": "*",
     "tsup": "^8.0.1",
     "typescript": "^5.3.2"
   },
