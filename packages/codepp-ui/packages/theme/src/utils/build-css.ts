@@ -1,4 +1,4 @@
-import type { CSSVar, Color, ColorPalette } from "../types";
+import type { CSSVar, Fonts } from "../types";
 
 type ColorPaletteValue =
   | string
@@ -28,4 +28,8 @@ export const buildCSSVars = (obj: ColorPaletteValue, prefix: string = "") => {
   }
 
   return css;
+};
+
+export const buildFontImports = (fonts: Fonts["urls"]) => {
+  return fonts.map((font) => `@import url('${font.url}');`).join("\n");
 };

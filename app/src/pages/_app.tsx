@@ -1,24 +1,28 @@
 import "@/styles/globals.css";
-import { buildCSSVars, defaultThemes } from "@codepp-ui/theme";
+import { buildCSSVars, buildFontImports } from "@codepp-ui/theme";
 import { type IWithHooks, withHooks, HooksProviders } from "@codepp/hooks";
-import { Global, css } from "@emotion/react";
 import NextApp, { type AppProps as NextAppProps } from "next/app";
 
 interface AppProps extends NextAppProps, IWithHooks {}
 
 function App({ Component, pageProps, theme, cookies, userAgent }: AppProps) {
-  const css = buildCSSVars(theme.colors as Record<string, any>, "theme");
-  console.log(css);
+  const colors = buildCSSVars(theme.colors as Record<string, any>, "theme");
+  const fonts = buildCSSVars(theme.fonts as Record<string, any>, "theme-font");
+  const fontImports = buildFontImports(theme.fonts.urls);
   return (
     <HooksProviders theme={theme} pageProps={pageProps}>
+      <style global jsx>{`
+        ${fontImports}
+      `}</style>
       <style global jsx>
         {`
           :root {
-            ${css}
+            ${colors}
+            ${fonts}
           }
         `}
       </style>
-      <Component theme={theme} />;
+      <Component theme={theme} />
     </HooksProviders>
   );
 }

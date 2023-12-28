@@ -1,7 +1,8 @@
 export { useTheme, ThemeProvider } from "./theme";
-export { defaultThemes } from "./themes";
-export { buildCSSVars } from "./utils/build-css";
-export { buildTheme } from "./utils/build-theme";
+
+export { ThemeBuilder } from "./themes";
+
+export { buildCSSVars, buildFontImports } from "./utils/build-css";
 
 export type {
   ThemeContextType,

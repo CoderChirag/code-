@@ -1,9 +1,4 @@
-import {
-  ThemeProvider,
-  type ITheme,
-  defaultThemes,
-  buildTheme,
-} from "@codepp-ui/theme";
+import { ThemeProvider, type ITheme, ThemeBuilder } from "@codepp-ui/theme";
 import { type FC, type PropsWithChildren } from "react";
 import { PagePropsProvider } from "./hooks/page-props";
 import NextApp, { type AppInitialProps, type AppContext } from "next/app";
@@ -44,7 +39,7 @@ export function withHooks(App: typeof NextApp) {
       }
     ).ctx?.req?.cookies;
 
-    let theme: ITheme = defaultThemes.defaultDark;
+    let theme: ITheme = new ThemeBuilder("dark").getTheme();
 
     if (cookies && cookies?.["X-SESSION-ID"]) {
       const sessionId = cookies["X-SESSION-ID"];
@@ -57,14 +52,19 @@ export function withHooks(App: typeof NextApp) {
             },
           }
         );
-        theme = JSON.parse(data);
-      } catch (e) {}
+        // theme = ;
+      } catch (e: any) {
+        console.error(
+          `error fetching session data with session id: ${sessionId}`,
+          e.message
+        );
+      }
     }
 
     const data: IWithHooks = {
       cookies,
       userAgent,
-      theme: buildTheme(defaultThemes.defaultDark),
+      theme,
     };
     if (getInitialProps) {
       const appProps = await getInitialProps(appContext);

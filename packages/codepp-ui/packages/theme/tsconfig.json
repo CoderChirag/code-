@@ -1,5 +1,8 @@
 {
   "extends": "@codepp/tsconfig/react-library.json",
   "include": ["."],
+  "compilerOptions": {
+    "noEmitOnError": true
+  },
   "exclude": ["dist", "build", "node_modules"]
 }

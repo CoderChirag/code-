@@ -15,62 +15,34 @@ export type HSLAcolor = `hsla(${number}, ${number}%, ${number}%, ${number})`;
 
 export type Color = HEXcolor | RGBcolor | HSLcolor | HSLAcolor;
 
-export interface ColorPalette {
-  background: Color;
-  primary: Color;
-  secondary: Color;
-  tertiary: Color;
-  borders: Color;
-  info: Color;
-  error: Color;
-  activityBar?: {
-    background?: Color;
-  };
-  sidebar?: {
-    background?: Color;
-    primary?: Color;
-    secondary?: Color;
-  };
-  editorGroups?: {
-    background?: Color;
-    primary?: Color;
-    secondary?: Color;
-  };
-  editor?: {
-    background?: Color;
-    primary?: Color;
-    secondary?: Color;
-    tertiary?: Color;
-  };
-  panel?: {
-    background?: Color;
-    primary?: Color;
-    secondary?: Color;
-    tertiary?: Color;
-  };
-  statusBar?: {
-    background?: Color;
-  };
+export interface BasicPalette {
+  backgroundPrimary: Color;
+  backgroundSecondary: Color;
+  foregroundPrimary: Color;
+  foregroundSecondary: Color;
+  selectionBackground: Color;
+  selectionForeground: Color;
+  hoverBackground: Color;
+  hoverForeground: Color;
+}
+export interface ColorPalette extends BasicPalette {
+  borderColor: Color;
+  titleBar: Omit<BasicPalette, "selectionBackground" | "selectionForeground">;
+  sideBar: BasicPalette;
+  explorer: BasicPalette;
+  editorGroup: BasicPalette;
+  editor: BasicPalette;
+  panel: BasicPalette;
+  statusBar: BasicPalette;
 }
 
 export interface Fonts {
-  urls?: [
-    {
-      name: string;
-      url: string;
-    }
-  ];
-  fallback: "serif" | "sans-serif" | "monospace" | "cursive";
+  urls: {
+    name: string;
+    url: string;
+  }[];
   primary: string;
-  secondary: string;
-  tertiary: string;
-  sidebar?: {
-    primary: string;
-    secondary: string;
-  };
-  editorGroups?: {
-    primary: string;
-  };
+  editor: string;
 }
 
 export interface ITheme {

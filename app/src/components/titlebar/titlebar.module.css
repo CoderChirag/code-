@@ -1,0 +1,18 @@
+.titlebar {
+  width: 100%;
+  height: 35px;
+  border-bottom: 1px solid var(--theme-borderColor);
+  background-color: var(--theme-titleBar-backgroundSecondary);
+  color: var(--theme-titleBar-foregroundSecondary);
+  display: flex;
+}
+
+.titlebar .titlebar-left,
+.titlebar .titlebar-right {
+  width: 25%;
+}
+
+.titlebar .titlebar-center {
+  width: 50%;
+  text-align: center;
+}
