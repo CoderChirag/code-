@@ -1,10 +1,13 @@
-import { useCallback, useState } from "react";
-import Titlebar from "@/components/titlebar/titlebar";
 import css from "./app.module.css";
+
+import { useCallback, useState } from "react";
 import { useEvent } from "react-use";
 
-export default function App() {
+import Titlebar from "@/components/titlebar/titlebar";
+import Statusbar from "@/components/statusbar/statusbar";
+import SplitView from "@/components/split-view/split-view";
 
+export default function App() {
   const [windowActive, setWindowActive] = useState(true);
 
   const handleWindowActive = useCallback((isActive: boolean) => {
@@ -17,6 +20,8 @@ export default function App() {
   return (
     <div className={`${css.app}`}>
       <Titlebar windowActive={windowActive} />
+      <SplitView />
+      <Statusbar />
     </div>
   );
 }

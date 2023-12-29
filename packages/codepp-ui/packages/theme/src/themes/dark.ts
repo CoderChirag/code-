@@ -1,42 +1,65 @@
 import type { BasicPalette, ColorPalette } from "../types";
 
-export const basicDarkPalette: BasicPalette = {
-  backgroundPrimary: "#1f6feb",
-  backgroundSecondary: "#00040a",
-  foregroundPrimary: "#fff",
-  foregroundSecondary: "#fff",
-  selectionBackground: "#1a3048",
-  selectionForeground: "#fff",
-  hoverBackground: "#00040a",
-  hoverForeground: "#fff",
+const basicPalette: BasicPalette = {
+  background: "#0d1117",
+  foreground: "#7d8590",
+  border: "#3d4144",
 };
 
 export const darkColorPalette: ColorPalette = {
-  ...basicDarkPalette,
-  borderColor: "#3d4144",
+  ...basicPalette,
   titleBar: {
-    background: basicDarkPalette.backgroundSecondary,
-    foreground: basicDarkPalette.backgroundSecondary,
+    background: "#00040a",
+    foreground: basicPalette.foreground,
     titleWindow: {
       background: "#16181c",
       foreground: "#2f333a",
       border: "#1f2329",
       hover: {
         background: "rgba(255, 255, 255, 0.08)",
-        foreground: "#7d8590",
+        foreground: basicPalette.foreground,
         border: "rgba(125, 133, 144, 0.3)",
       },
       inactive: {
         background: "#16181c",
-        foreground: "#7d8590",
+        foreground: basicPalette.foreground,
         border: "rgba(125, 133, 144, 0.25)",
       },
     },
   },
-  sideBar: { ...basicDarkPalette },
-  explorer: { ...basicDarkPalette },
-  editorGroup: { ...basicDarkPalette },
-  editor: { ...basicDarkPalette },
-  panel: { ...basicDarkPalette },
-  statusBar: { ...basicDarkPalette },
+  statusBar: {
+    background: basicPalette.background,
+    foreground: basicPalette.foreground,
+    secondary: {
+      background: "#30363d",
+      foreground: "#ffffff",
+      hover: {
+        background: "rgba(230, 237, 243, 0.08)",
+        foreground: basicPalette.foreground,
+      },
+    },
+    hover: {
+      background: "rgba(230, 237, 243, 0.08)",
+      foreground: basicPalette.foreground,
+    },
+  },
+  sideBar: {
+    background: basicPalette.background,
+    foreground: basicPalette.foreground,
+    primary: {
+      background: "#1f6feb",
+      foreground: "#ffffff",
+    },
+    secondary: {
+      background: "#f78166",
+    },
+    active: {
+      foreground: "#ffffff",
+    },
+  },
+  // explorer: { ...basicDarkPalette },
+  // editorGroup: { ...basicDarkPalette },
+  // editor: { ...basicDarkPalette },
+  // panel: { ...basicDarkPalette },
+  // statusBar: { ...basicDarkPalette },
 };

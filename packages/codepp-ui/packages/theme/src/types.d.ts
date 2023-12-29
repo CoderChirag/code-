@@ -17,42 +17,36 @@ export type HSLAcolor = `hsla(${number}, ${number}%, ${number}%, ${number})`;
 export type Color = HEXcolor | RGBcolor | RGBAcolor | HSLcolor | HSLAcolor;
 
 export interface BasicPalette {
-  backgroundPrimary: Color;
-  backgroundSecondary: Color;
-  foregroundPrimary: Color;
-  foregroundSecondary: Color;
-  selectionBackground: Color;
-  selectionForeground: Color;
-  hoverBackground: Color;
-  hoverForeground: Color;
+  background: Color;
+  foreground: Color;
+  border: Color;
 }
 export interface ColorPalette extends BasicPalette {
-  borderColor: Color;
-  titleBar: {
-    background: Color;
-    foreground: Color;
-    titleWindow: {
-      background: Color;
-      foreground: Color;
-      border: Color;
-      hover: {
-        background: Color;
-        foreground: Color;
-        border: Color;
-      };
-      inactive: {
-        background: Color;
-        foreground: Color;
-        border: Color;
-      };
+  titleBar: Omit<BasicPalette, "border"> & {
+    titleWindow: BasicPalette & {
+      hover: BasicPalette;
+      inactive: BasicPalette;
     };
   };
-  sideBar: BasicPalette;
-  explorer: BasicPalette;
-  editorGroup: BasicPalette;
-  editor: BasicPalette;
-  panel: BasicPalette;
-  statusBar: BasicPalette;
+  statusBar: Omit<BasicPalette, "border"> & {
+    secondary: Omit<BasicPalette, "border"> & {
+      hover: Omit<BasicPalette, "border">;
+    };
+    hover: Omit<BasicPalette, "border">;
+  };
+  sideBar: Omit<BasicPalette, "border"> & {
+    primary: Omit<BasicPalette, "border">;
+    secondary: {
+      background: Color;
+    };
+    active: {
+      foreground: Color;
+    };
+  };
+  // explorer: BasicPalette;
+  // editorGroup: BasicPalette;
+  // editor: BasicPalette;
+  // panel: BasicPalette;
 }
 
 export interface Fonts {

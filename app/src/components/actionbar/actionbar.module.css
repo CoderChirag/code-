@@ -1,0 +1,56 @@
+.actionbar {
+  width: 100%;
+  text-align: center;
+  display: block;
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0;
+}
+
+.action-item {
+  position: relative;
+  width: 100%;
+  padding: 10px 0px;
+  list-style: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.action-item#explorer {
+  padding-left: 5px;
+}
+/* .action-item svg {
+  font-size: 25px;
+} */
+
+.active-item-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  margin: -1px;
+  /* background-color: var(--theme-sideBar-active-foreground); */
+  /* opacity: 0; */
+  /* transition: opacity 0.2s ease-in-out; */
+}
+
+.action-item.active .active-item-indicator::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  z-index: 2;
+  border-left: 2px solid var(--theme-sideBar-secondary-background);
+}
+
+.action-item.active,
+.action-item:hover {
+  color: var(--theme-sideBar-active-foreground);
+}

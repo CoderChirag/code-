@@ -1,24 +1,14 @@
-import { basicDarkPalette, darkColorPalette } from "./dark";
-import type {
-  BasicPalette,
-  Color,
-  ColorPalette,
-  Fonts,
-  ITheme,
-} from "../types";
+import { darkColorPalette } from "./dark";
+import type { Color, ColorPalette, Fonts, ITheme } from "../types";
 import type { DeepPartial } from "../utils/types";
-import { basicLightPalette, lightColorPalette } from "./light";
+import { lightColorPalette } from "./light";
 
 type RawTheme = Omit<ITheme, "colors"> & {
-  colors: BasicPalette & { borderColor: Color } & DeepPartial<ColorPalette>;
+  colors: { borderColor: Color } & DeepPartial<ColorPalette>;
 };
 export class ThemeBuilder {
-  basicPalette: BasicPalette;
   theme: ITheme;
   constructor(type: "dark" | "light", theme?: RawTheme) {
-    if (type === "dark") this.basicPalette = basicDarkPalette;
-    else this.basicPalette = basicLightPalette;
-
     this.theme = {
       name: type === "dark" ? "default-dark" : "default-light",
       colors:
@@ -42,7 +32,7 @@ export class ThemeBuilder {
   }
 
   private buildColors(
-    colors: BasicPalette & { borderColor: Color } & DeepPartial<ColorPalette>
+    colors: { borderColor: Color } & DeepPartial<ColorPalette>
   ) {
     const stack = new Array<{
       color: Record<string, any>;
