@@ -13,12 +13,15 @@
     "@codepp/eslint-config": "*",
     "@codepp/hooks": "*",
     "@codepp/tsconfig": "*",
-    "@emotion/react": "^11.11.1",
+    "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.2",
+    "@mui/material": "^5.15.2",
     "codepp-ui": "*",
     "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-use": "^17.4.2"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",

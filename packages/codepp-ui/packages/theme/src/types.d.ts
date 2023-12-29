@@ -10,10 +10,11 @@ export interface ThemeContextType {
 
 export type HEXcolor = `#${string}`;
 export type RGBcolor = `rgb(${number}, ${number}, ${number})`;
+export type RGBAcolor = `rgba(${number}, ${number}, ${number}, ${number})`;
 export type HSLcolor = `hsl(${number}, ${number}%, ${number}%)`;
 export type HSLAcolor = `hsla(${number}, ${number}%, ${number}%, ${number})`;
 
-export type Color = HEXcolor | RGBcolor | HSLcolor | HSLAcolor;
+export type Color = HEXcolor | RGBcolor | RGBAcolor | HSLcolor | HSLAcolor;
 
 export interface BasicPalette {
   backgroundPrimary: Color;
@@ -27,7 +28,25 @@ export interface BasicPalette {
 }
 export interface ColorPalette extends BasicPalette {
   borderColor: Color;
-  titleBar: Omit<BasicPalette, "selectionBackground" | "selectionForeground">;
+  titleBar: {
+    background: Color;
+    foreground: Color;
+    titleWindow: {
+      background: Color;
+      foreground: Color;
+      border: Color;
+      hover: {
+        background: Color;
+        foreground: Color;
+        border: Color;
+      };
+      inactive: {
+        background: Color;
+        foreground: Color;
+        border: Color;
+      };
+    };
+  };
   sideBar: BasicPalette;
   explorer: BasicPalette;
   editorGroup: BasicPalette;

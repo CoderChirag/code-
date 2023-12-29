@@ -1,0 +1,30 @@
+.title-window {
+  height: 70%;
+  width: 80%;
+  color: var(--theme-titleBar-titleWindow-foreground);
+  border: 1px solid var(--theme-titleBar-titleWindow-border);
+  border-radius: 6px;
+  text-align: center;
+  background-color: var(--theme-titleBar-titleWindow-background);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-window:hover {
+  color: var(--theme-titleBar-titleWindow-hover-foreground);
+  background-color: var(--theme-titleBar-titleWindow-hover-background);
+  border: 1px solid var(--theme-titleBar-titleWindow-hover-border);
+}
+
+.search-icon {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.inactive {
+  background-color: var(--theme-titleBar-titleWindow-inactive-background);
+  color: var(--theme-titleBar-titleWindow-inactive-foreground);
+  border: 1px solid var(--theme-titleBar-titleWindow-inactive-border);
+}

@@ -44,54 +44,23 @@ export class ThemeBuilder {
   private buildColors(
     colors: BasicPalette & { borderColor: Color } & DeepPartial<ColorPalette>
   ) {
-    const basicPalette = {
-      backgroundPrimary: colors.backgroundPrimary,
-      backgroundSecondary: colors.backgroundSecondary,
-      foregroundPrimary: colors.foregroundPrimary,
-      foregroundSecondary: colors.foregroundSecondary,
-      selectionBackground: colors.selectionBackground,
-      selectionForeground: colors.selectionForeground,
-      hoverBackground: colors.hoverBackground,
-      hoverForeground: colors.hoverForeground,
-    };
+    const stack = new Array<{
+      color: Record<string, any>;
+      theme: Record<string, any>;
+    }>();
 
-    this.theme.colors = {
-      ...basicPalette,
-      borderColor: colors.borderColor,
-      titleBar: {
-        backgroundPrimary: colors.backgroundPrimary,
-        backgroundSecondary: colors.backgroundSecondary,
-        foregroundPrimary: colors.foregroundPrimary,
-        foregroundSecondary: colors.foregroundSecondary,
-        hoverBackground: colors.hoverBackground,
-        hoverForeground: colors.hoverForeground,
-        ...colors?.titleBar,
-      },
-      sideBar: {
-        ...basicPalette,
-        ...colors?.sideBar,
-      },
-      explorer: {
-        ...basicPalette,
-        ...colors?.explorer,
-      },
-      editorGroup: {
-        ...basicPalette,
-        ...colors?.editorGroup,
-      },
-      editor: {
-        ...basicPalette,
-        ...colors.editor,
-      },
-      panel: {
-        ...basicPalette,
-        ...colors?.panel,
-      },
-      statusBar: {
-        ...basicPalette,
-        ...colors?.statusBar,
-      },
-    };
+    stack.push({
+      color: colors,
+      theme: this.theme.colors,
+    });
+    while (stack.length > 0) {
+      const { color, theme } = stack.pop()!;
+      for (const [key] of Object.entries(theme)) {
+        if (typeof theme[key] === "object" && color[key])
+          stack.push({ color: color[key], theme: theme[key] });
+        else if (color[key]) theme[key] = color[key];
+      }
+    }
   }
 
   private buildFonts(fonts: Fonts) {
