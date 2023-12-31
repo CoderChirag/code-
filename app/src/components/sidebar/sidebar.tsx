@@ -1,8 +1,7 @@
-import appCss from "@/components/app/app.module.css";
 import css from "./sidebar.module.css";
+
 import { useState } from "react";
-import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
-import SearchIcon from "@mui/icons-material/Search";
+import { FileCopyOutlinedIcon, SearchIcon } from "@codepp/ui/icons";
 
 import Menubar from "@/components/menubar/menubar";
 import Actionbar from "@/components/actionbar/actionbar";
