@@ -1,7 +1,6 @@
 {
   "name": "@codepp/theme",
   "version": "0.0.0",
-  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
