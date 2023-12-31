@@ -21,7 +21,7 @@ export default function Sidebar() {
     {
       id: "search",
       label: "Search",
-      icon: <SearchIcon transform="scale(1.2) rotate(85deg)" />,
+      icon: <SearchIcon tform="scale(1.2) rotate(85deg)" />,
       action: () => {
         setActiveActionItem("search");
       },
