@@ -24,7 +24,6 @@
   "workspaces": [
     "app",
     "packages/*",
-    "packages/codepp-ui/packages/*",
     "storybook"
   ]
 }

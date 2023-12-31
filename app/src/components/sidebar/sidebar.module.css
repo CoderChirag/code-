@@ -7,3 +7,8 @@
   display: flex;
   flex-direction: column;
 }
+
+.search-icon {
+  font-size: 22px;
+  transform: scale(1.5) rotate(82deg);
+}

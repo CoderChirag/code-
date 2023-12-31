@@ -1,5 +1,5 @@
 {
-  "name": "codepp-ui",
+  "name": "ui",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -11,17 +11,10 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.ts",
+    "build": "tsup",
     "dev": "tsup src/index.ts --watch",
     "lint": "eslint . --max-warnings 0",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
-  },
-  "workspaces": [
-    "packages/*",
-    "../*"
-  ],
-  "dependencies": {
-    "@codepp-ui/button": "*"
   },
   "devDependencies": {
     "@codepp/eslint-config": "*",

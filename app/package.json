@@ -9,15 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@codepp-ui/theme": "*",
     "@codepp/eslint-config": "*",
     "@codepp/hooks": "*",
     "@codepp/tsconfig": "*",
+    "@codepp/theme": "*",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.2",
     "@mui/material": "^5.15.2",
-    "codepp-ui": "*",
+    "ui": "*",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",

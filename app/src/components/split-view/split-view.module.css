@@ -3,4 +3,5 @@
   height: calc(100% - 62px);
   display: flex;
   flex-direction: column;
+  flex-wrap: nowrap;
 }

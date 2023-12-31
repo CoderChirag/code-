@@ -1,4 +1,4 @@
-import { ThemeProvider, type ITheme, ThemeBuilder } from "@codepp-ui/theme";
+import { ThemeProvider, type ITheme, ThemeBuilder } from "@codepp/theme";
 import { type FC, type PropsWithChildren } from "react";
 import { PagePropsProvider } from "./hooks/page-props";
 import NextApp, { type AppInitialProps, type AppContext } from "next/app";

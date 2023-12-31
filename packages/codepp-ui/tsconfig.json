@@ -1,5 +1,5 @@
 {
   "extends": "@codepp/tsconfig/react-library.json",
-  "include": ["."],
+  "include": [".", "../theme"],
   "exclude": ["dist", "build", "node_modules"]
 }

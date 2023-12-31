@@ -16,12 +16,12 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@codepp-ui/theme": "*",
     "axios": "^1.6.2"
   },
   "devDependencies": {
     "@codepp/eslint-config": "*",
     "@codepp/tsconfig": "*",
+    "@codepp/theme": "*",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
     "eslint": "^8.54.0",
