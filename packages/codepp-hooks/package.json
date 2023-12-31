@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
+      "import": "./dist/index.js",
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js"
     }
@@ -26,6 +26,7 @@
     "@codepp/eslint-config": "*",
     "@codepp/tsconfig": "*",
     "@codepp/theme": "*",
+    "@codepp/ui": "*",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
     "eslint": "^8.54.0",

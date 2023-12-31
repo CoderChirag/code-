@@ -8,12 +8,12 @@
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs.js"
+      "require": "./dist/index.js"
     },
     "./icons": {
       "import": "./dist/icons/index.js",
       "types": "./dist/icons/index.d.ts",
-      "require": "./dist/icons/index.cjs.js"
+      "require": "./dist/icons/index.js"
     }
   },
   "scripts": {
@@ -36,6 +36,8 @@
     "access": "public"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.2",
     "@mui/material": "^5.15.2"
   }

@@ -4,12 +4,23 @@ import { type IWithHooks, withHooks, HooksProviders } from "@codepp/hooks";
 import NextApp, { type AppProps as NextAppProps } from "next/app";
 interface AppProps extends NextAppProps, IWithHooks {}
 
-function App({ Component, pageProps, theme, cookies, userAgent }: AppProps) {
+function App({
+  Component,
+  pageProps,
+  theme,
+  actionItems,
+  cookies,
+  userAgent,
+}: AppProps) {
   const colors = buildCSSVars(theme.colors as Record<string, any>, "theme");
   const fonts = buildCSSVars(theme.fonts as Record<string, any>, "theme-font");
   const fontImports = buildFontImports(theme.fonts.urls);
   return (
-    <HooksProviders theme={theme} pageProps={pageProps}>
+    <HooksProviders
+      theme={theme}
+      pageProps={pageProps}
+      actionItems={actionItems}
+    >
       <style global jsx>{`
         ${fontImports}
       `}</style>

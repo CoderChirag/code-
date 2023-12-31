@@ -14,8 +14,6 @@
     "@codepp/theme": "*",
     "@codepp/tsconfig": "*",
     "@codepp/ui": "*",
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",

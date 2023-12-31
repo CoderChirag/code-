@@ -3,21 +3,30 @@ import { type FC, type PropsWithChildren } from "react";
 import { PagePropsProvider } from "./hooks/page-props";
 import NextApp, { type AppInitialProps, type AppContext } from "next/app";
 import axios from "axios";
+import {
+  type IActionItems,
+  actionItems as defaultActionItems,
+} from "./defaults/action-items";
+import { ActionItemsProvider } from "./hooks/action-items";
 
 interface IHooksProviderProps {
   theme: ITheme;
   pageProps: Record<string, any>;
+  actionItems: IActionItems;
 }
 
 export const HooksProviders: FC<PropsWithChildren<IHooksProviderProps>> = ({
   children,
   theme,
   pageProps,
+  actionItems,
 }) => {
   return (
     <>
       <ThemeProvider initialTheme={theme}>
-        <PagePropsProvider value={pageProps}>{children}</PagePropsProvider>
+        <ActionItemsProvider actionItems={actionItems}>
+          <PagePropsProvider value={pageProps}>{children}</PagePropsProvider>
+        </ActionItemsProvider>
       </ThemeProvider>
     </>
   );
@@ -27,6 +36,7 @@ export interface IWithHooks {
   theme: ITheme;
   cookies: Record<string, any>;
   userAgent: string | undefined;
+  actionItems: IActionItems;
 }
 
 export function withHooks(App: typeof NextApp) {
@@ -65,6 +75,7 @@ export function withHooks(App: typeof NextApp) {
       cookies,
       userAgent,
       theme,
+      actionItems: defaultActionItems,
     };
     if (getInitialProps) {
       const appProps = await getInitialProps(appContext);
