@@ -1,5 +1,4 @@
 import css from "./title-window.module.css";
-import appCss from "@/components/app/app.module.css";
 
 import { SearchIcon } from "@codepp/ui/icons";
 
@@ -13,9 +12,7 @@ export default function TitleWindow({ title, windowActive }: TitleWindowProps) {
     <div
       className={`${css["title-window"]} ${!windowActive ? css.inactive : ""}`}
     >
-      <SearchIcon
-        className={`${appCss["search-icon"]} ${css["search-icon"]}`}
-      />
+      <SearchIcon className={css["search-icon"]} />
       {title}
     </div>
   );
