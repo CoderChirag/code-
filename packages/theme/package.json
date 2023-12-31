@@ -1,14 +1,16 @@
 {
   "name": "@codepp/theme",
   "version": "0.0.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js"
+    }
+  },
   "sideEffects": false,
   "license": "MIT",
-  "files": [
-    "dist/**"
-  ],
   "scripts": {
     "build": "tsup src/index.ts",
     "dev": "tsup src/index.ts --watch",

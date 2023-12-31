@@ -22,7 +22,7 @@ export default defineConfig((options) => {
     },
     {
       entry: ["src/icons/index.ts"],
-      outDir: "icons",
+      outDir: "dist/icons",
       ...baseConfig,
     },
   ];

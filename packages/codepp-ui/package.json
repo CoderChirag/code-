@@ -1,15 +1,21 @@
 {
   "name": "@codepp/ui",
   "version": "0.0.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "sideEffects": false,
   "private": true,
   "license": "MIT",
-  "files": [
-    "dist/**"
-  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs.js"
+    },
+    "./icons": {
+      "import": "./dist/icons/index.js",
+      "types": "./dist/icons/index.d.ts",
+      "require": "./dist/icons/index.cjs.js"
+    }
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup src/index.ts --watch",

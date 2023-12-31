@@ -2,7 +2,6 @@ import "@/styles/globals.css";
 import { buildCSSVars, buildFontImports } from "@codepp/theme";
 import { type IWithHooks, withHooks, HooksProviders } from "@codepp/hooks";
 import NextApp, { type AppProps as NextAppProps } from "next/app";
-
 interface AppProps extends NextAppProps, IWithHooks {}
 
 function App({ Component, pageProps, theme, cookies, userAgent }: AppProps) {

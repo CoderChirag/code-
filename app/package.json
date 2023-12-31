@@ -11,8 +11,8 @@
   "dependencies": {
     "@codepp/eslint-config": "*",
     "@codepp/hooks": "*",
-    "@codepp/tsconfig": "*",
     "@codepp/theme": "*",
+    "@codepp/tsconfig": "*",
     "@codepp/ui": "*",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",
+    "@emotion/eslint-plugin": "^11.11.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

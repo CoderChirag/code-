@@ -1,6 +1,5 @@
 module.exports = {
   root: true,
-  extends: "@codepp/eslint-config-nextjs",
+  extends: "@codepp/eslint-config/next.js",
   plugins: ["@emotion"],
-  tsconfigRootDir: __dirname,
 };

@@ -23,7 +23,6 @@
   "packageManager": "yarn@1.22.19",
   "workspaces": [
     "app",
-    "packages/*",
-    "storybook"
+    "packages/*"
   ]
 }
