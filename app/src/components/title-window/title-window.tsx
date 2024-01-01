@@ -1,6 +1,6 @@
 import css from "./title-window.module.css";
 
-import { SearchIcon } from "@codepp/ui/icons";
+import SearchIcon from "@codepp/ui/icons/Search";
 
 interface TitleWindowProps {
   title: string;

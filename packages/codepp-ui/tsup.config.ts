@@ -1,3 +1,4 @@
+import { readdirSync } from "node:fs";
 import { type Options, defineConfig } from "tsup";
 import { devDependencies } from "./package.json";
 
@@ -13,9 +14,10 @@ function getBaseConfig(options: Options): Options {
   };
 }
 
-export default defineConfig((options) => {
+function getConfig(options: Options): Options[] {
+  const folders = readdirSync("src/icons");
   const baseConfig = getBaseConfig(options);
-  return [
+  const config = [
     {
       entry: ["src/index.ts"],
       ...baseConfig,
@@ -26,4 +28,18 @@ export default defineConfig((options) => {
       ...baseConfig,
     },
   ];
+  for (const folder of folders) {
+    if (folder === "index.ts") continue;
+    config.push({
+      entry: [`src/icons/${folder}/index.tsx`],
+      outDir: `dist/icons/${folder}`,
+      ...baseConfig,
+    });
+  }
+  return config;
+}
+
+export default defineConfig((options) => {
+  const config = getConfig(options);
+  return config;
 });
