@@ -1,5 +1,10 @@
 {
   "extends": "@codepp/tsconfig/react.json",
-  "include": [".", "../theme"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "declaration": true,
+    "declarationMap": true
+  },
+  "include": ["./src/index.ts", "./src/icons"],
   "exclude": ["dist", "build", "node_modules"]
 }

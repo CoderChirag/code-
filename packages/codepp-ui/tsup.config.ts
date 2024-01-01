@@ -4,10 +4,7 @@ import { devDependencies } from "./package.json";
 
 function getBaseConfig(options: Options): Options {
   return {
-    minify: !options.watch,
-    sourcemap: true,
     format: ["cjs", "esm"],
-    dts: true,
     clean: true,
     external: [...Object.keys(devDependencies)],
     tsconfig: "tsconfig.json",

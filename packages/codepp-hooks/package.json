@@ -14,7 +14,7 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup --dts",
+    "build": "tsup --dts --minify",
     "dev": "concurrently \"tsup --sourcemap --watch\" \"tsc -w --emitDeclarationOnly\"",
     "lint": "eslint . --max-warnings 0",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"

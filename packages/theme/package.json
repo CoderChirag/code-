@@ -11,8 +11,8 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
-    "build": "tsup src/index.ts",
-    "dev": "tsup src/index.ts --watch",
+    "build": "tsup --dts --minify",
+    "dev": "concurrently \"tsup --sourcemap --watch\" \"tsc -w --emitDeclarationOnly\"",
     "lint": "eslint . --max-warnings 0",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
