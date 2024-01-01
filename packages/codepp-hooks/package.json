@@ -14,8 +14,8 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "tsup --dts",
+    "dev": "concurrently \"tsup --sourcemap --watch\" \"tsc -w --emitDeclarationOnly\"",
     "lint": "eslint . --max-warnings 0",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
@@ -24,11 +24,12 @@
   },
   "devDependencies": {
     "@codepp/eslint-config": "*",
-    "@codepp/tsconfig": "*",
     "@codepp/theme": "*",
+    "@codepp/tsconfig": "*",
     "@codepp/ui": "*",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
+    "concurrently": "^8.2.2",
     "eslint": "^8.54.0",
     "react": "^18.2.0",
     "tsup": "^8.0.1",
