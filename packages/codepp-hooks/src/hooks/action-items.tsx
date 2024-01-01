@@ -24,8 +24,14 @@ export const ActionItemsProvider: FC<PropsWithChildren<IProviderProps>> = ({
   children,
   actionItems,
 }) => {
-  const [actionItemsState, setActionItemsState] =
-    useState<IActionItems>(actionItems);
+  const [actionItemsState, setActionItemsState] = useState<IActionItems>({
+    active: actionItems.active,
+    actionItems: actionItems.actionItems.map((item) => ({
+      ...item,
+      // Recreate Icon components on the client:
+      icon: item.icon,
+    })),
+  });
   return (
     <ActionItemsContext.Provider
       value={[actionItemsState, setActionItemsState]}
@@ -36,40 +42,46 @@ export const ActionItemsProvider: FC<PropsWithChildren<IProviderProps>> = ({
 };
 
 class ActionItems {
-  #actionItems: IActionItems;
-  #setActionItems: SetActionItems;
+  #state: IActionItems;
+  #setState: SetActionItems;
+
   constructor([actionItems, setActionItems]: [IActionItems, SetActionItems]) {
-    this.#actionItems = actionItems;
-    this.#setActionItems = setActionItems;
+    this.#state = actionItems;
+    this.#setState = setActionItems;
   }
+
   get actionItems() {
-    return this.#actionItems;
+    return this.#state;
   }
-  addActionItem(actionItem: ActionItem) {
-    if (
-      !this.#actionItems.actionItems.find((item) => item.id === actionItem.id)
-    )
-      this.#setActionItems((prev) => ({
+
+  addActionItem = (actionItem: ActionItem) => {
+    if (!this.#state.actionItems.find((item) => item.id === actionItem.id))
+      this.#setState((prev) => ({
         active: prev.active,
         actionItems: [...prev.actionItems, actionItem],
       }));
     else {
       throw new Error(`Action Item with id ${actionItem.id} already exists`);
     }
-  }
-  removeActionItem(id: string) {
-    this.#setActionItems((prev) => ({
+  };
+
+  removeActionItem = (id: string) => {
+    this.#setState((prev) => ({
       active: prev.active === id ? "explorer" : prev.active,
       actionItems: prev.actionItems.filter((item) => item.id !== id),
     }));
-  }
+  };
+
+  setActiveActionItem = (id: string) => {
+    if (this.#state.actionItems.find((item) => item.id === id))
+      this.#setState((prev) => ({
+        ...prev,
+        active: id,
+      }));
+  };
 }
 
-let actionItemsInstance: ActionItems;
-
 export function useActionItems() {
-  const [actionItems, setActionItems] = useContext(ActionItemsContext);
-  if (!actionItemsInstance)
-    actionItemsInstance = new ActionItems([actionItems, setActionItems]);
-  return actionItemsInstance;
+  const context = useContext(ActionItemsContext);
+  return new ActionItems(context);
 }

@@ -14,6 +14,7 @@
     "@codepp/theme": "*",
     "@codepp/tsconfig": "*",
     "@codepp/ui": "*",
+    "html-react-parser": "^5.0.11",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",

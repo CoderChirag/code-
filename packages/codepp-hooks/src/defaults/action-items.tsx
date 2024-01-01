@@ -1,10 +1,13 @@
-import { type FC } from "react";
-import { FileCopyOutlinedIcon, SearchIcon } from "@codepp/ui/icons";
+import SearchIcon from "@mui/icons-material/Search";
 
 export interface ActionItem {
   id: string;
   label: string;
-  icon: FC;
+  icon: {
+    type: "import" | "parse";
+    icon: string;
+  };
+  props: Record<string, any>;
 }
 
 export interface IActionItems {
@@ -18,12 +21,22 @@ export const actionItems: IActionItems = {
     {
       id: "explorer",
       label: "Explorer",
-      icon: FileCopyOutlinedIcon,
+      icon: {
+        type: "import",
+        icon: "FileCopyOutlinedIcon",
+      },
+      props: {},
     },
     {
       id: "search",
       label: "Search",
-      icon: SearchIcon,
+      icon: {
+        type: "import",
+        icon: "SearchIcon",
+      },
+      props: {
+        tform: "scale(1.5) rotate(85deg)",
+      },
     },
   ],
 };
