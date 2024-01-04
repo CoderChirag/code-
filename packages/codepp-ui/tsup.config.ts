@@ -5,7 +5,6 @@ import { devDependencies } from "./package.json";
 function getBaseConfig(options: Options): Options {
   return {
     format: ["cjs", "esm"],
-    clean: true,
     external: [...Object.keys(devDependencies)],
     tsconfig: "tsconfig.json",
   };

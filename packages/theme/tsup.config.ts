@@ -6,7 +6,6 @@ export default defineConfig((options) => {
     entry: ["src/index.ts"],
     strict: true,
     format: ["cjs", "esm"],
-    clean: true,
     external: [...Object.keys(devDependencies)],
   };
 });
