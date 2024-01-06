@@ -1,13 +1,23 @@
 import css from "./sidebar.module.css";
 
+import { useState } from "react";
 import { useActionItems } from "@codepp/hooks";
 
 import Menubar from "@/components/menubar/menubar";
 import Actionbar from "@/components/actionbar/actionbar";
+import SidebarFooter from "../sidebar-footer/sidebar-footer";
 
 export default function Sidebar() {
-  const { actionItems: actionItemsState, setActiveActionItem } =
-    useActionItems();
+  const [activeDragComponent, setActiveDragComponent] =
+    useState<HTMLElement | null>(null);
+  const [activeDragOverComponent, setActiveDragOverComponent] =
+    useState<HTMLElement | null>(null);
+
+  const {
+    actionItems: actionItemsState,
+    setActiveActionItem,
+    updateActionItems,
+  } = useActionItems();
   const { actionItems, active } = actionItemsState;
 
   return (
@@ -17,6 +27,16 @@ export default function Sidebar() {
         actionItems={actionItems}
         activeActionItem={active}
         setActiveActionItem={setActiveActionItem}
+        updateActionItems={updateActionItems}
+        activeDragComponent={activeDragComponent}
+        setActiveDragComponent={setActiveDragComponent}
+        activeDragOverComponent={activeDragOverComponent}
+        setActiveDragOverComponent={setActiveDragOverComponent}
+      />
+      <SidebarFooter
+        actionItems={actionItems}
+        activeDragComponent={activeDragComponent}
+        updateActionItems={updateActionItems}
       />
     </aside>
   );

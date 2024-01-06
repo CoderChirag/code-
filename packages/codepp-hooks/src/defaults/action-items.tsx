@@ -35,7 +35,7 @@ export const actionItems: IActionItems = {
         icon: "SearchIcon",
       },
       props: {
-        tform: "scale(1.5) rotate(85deg)",
+        tform: "scale(1.3) rotate(85deg)",
       },
     },
   ],

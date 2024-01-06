@@ -7,7 +7,11 @@ import {
   PropsWithChildren,
   useState,
 } from "react";
-import { type ActionItem, type IActionItems } from "../defaults/action-items";
+import {
+  actionItems as defaultActionItems,
+  type ActionItem,
+  type IActionItems,
+} from "../defaults/action-items";
 
 type SetActionItems = Dispatch<SetStateAction<IActionItems>>;
 
@@ -28,7 +32,6 @@ export const ActionItemsProvider: FC<PropsWithChildren<IProviderProps>> = ({
     active: actionItems.active,
     actionItems: actionItems.actionItems.map((item) => ({
       ...item,
-      // Recreate Icon components on the client:
       icon: item.icon,
     })),
   });
@@ -69,6 +72,22 @@ class ActionItems {
     this.#setState((prev) => ({
       active: prev.active === id ? "explorer" : prev.active,
       actionItems: prev.actionItems.filter((item) => item.id !== id),
+    }));
+  };
+
+  updateActionItems = (actionItems: ActionItem[]) => {
+    const defaultItemIds = defaultActionItems.actionItems.map(
+      (item) => item.id
+    );
+    if (
+      actionItems.filter((item) => defaultItemIds.includes(item.id)).length !==
+      defaultItemIds.length
+    )
+      return;
+
+    this.#setState((prev) => ({
+      active: prev.active,
+      actionItems: actionItems,
     }));
   };
 

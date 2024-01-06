@@ -1,7 +1,11 @@
 import css from "./actionbar.module.css";
 
-import { type ComponentType, useMemo, useState, useEffect } from "react";
-import dynamic from "next/dynamic";
+import {
+  type ComponentType,
+  type Dispatch,
+  type SetStateAction,
+  useMemo,
+} from "react";
 import parse from "html-react-parser";
 import { type ActionItem } from "@codepp/hooks";
 
@@ -9,6 +13,11 @@ interface ActionBarProps {
   actionItems: ActionItem[];
   activeActionItem: string;
   setActiveActionItem: (id: string) => void;
+  updateActionItems: (actionItems: ActionItem[]) => void;
+  activeDragComponent: HTMLElement | null;
+  setActiveDragComponent: Dispatch<SetStateAction<HTMLElement | null>>;
+  activeDragOverComponent: HTMLElement | null;
+  setActiveDragOverComponent: Dispatch<SetStateAction<HTMLElement | null>>;
 }
 
 type Icon = ComponentType;
@@ -17,6 +26,11 @@ export default function Actionbar({
   actionItems,
   activeActionItem,
   setActiveActionItem,
+  updateActionItems,
+  activeDragComponent,
+  setActiveDragComponent,
+  activeDragOverComponent,
+  setActiveDragOverComponent,
 }: ActionBarProps) {
   const iconComponents = useMemo(() => {
     const icons: Record<
@@ -38,6 +52,70 @@ export default function Actionbar({
     setActiveActionItem(id);
   }
 
+  function dragStartHandler(e: React.DragEvent<HTMLLIElement>) {
+    setActiveDragComponent(e.currentTarget);
+  }
+
+  function dragOverHandler(e: React.DragEvent<HTMLLIElement>) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+
+    setActiveDragOverComponent(e.currentTarget);
+
+    if (e.currentTarget === activeDragComponent) return;
+    e.currentTarget.classList.add(css["top"]);
+  }
+
+  function dragLeaveHandler(e: React.DragEvent<HTMLLIElement>) {
+    setActiveDragOverComponent(null);
+    e.currentTarget.classList.remove(css["top"]);
+  }
+
+  function findDragIds(e: React.DragEvent<HTMLLIElement>) {
+    const dragComponentId = activeDragComponent?.id.split("_")[1] || "";
+    const dragOverComponentId = activeDragOverComponent?.id.split("_")[1] || "";
+
+    return [dragComponentId, dragOverComponentId];
+  }
+
+  function moveActionItems(
+    dragComponentId: string,
+    dragOverComponentId: string
+  ) {
+    const dragComponentIndex = actionItems.findIndex(
+      (actionItem) => actionItem.id === dragComponentId
+    );
+    const dragOverComponentIndex = actionItems.findIndex(
+      (actionItem) => actionItem.id === dragOverComponentId
+    );
+    const updatedActionItems = [...actionItems];
+
+    updatedActionItems.splice(
+      dragOverComponentIndex > dragComponentIndex
+        ? dragOverComponentIndex - 1
+        : dragOverComponentIndex, // if dragOverComponent is below dragComponent, then dragOverComponentIndex - 1
+      0,
+      updatedActionItems.splice(dragComponentIndex, 1)[0]
+    );
+
+    return updatedActionItems;
+  }
+
+  function dropHandler(e: React.DragEvent<HTMLLIElement>) {
+    e.currentTarget.classList.remove(css["top"]);
+
+    const [dragComponentId, dragOverComponentId] = findDragIds(e);
+
+    const updatedActionItems = moveActionItems(
+      dragComponentId,
+      dragOverComponentId
+    );
+    updateActionItems(updatedActionItems);
+
+    setActiveDragComponent(null);
+    setActiveDragOverComponent(null);
+  }
+
   return (
     <ul className={css.actionbar}>
       {actionItems.map((actionItem) => {
@@ -47,11 +125,15 @@ export default function Actionbar({
           <li
             className={`${css["action-item"]} ${
               actionItem.id === activeActionItem ? css.active : ""
-            }`}
+            } ${css[actionItem.id] ? css[actionItem.id] : ""}`}
             key={actionItem.id}
-            id={css[actionItem.id]}
+            id={`actionbar_${actionItem.id}`}
             onClick={actionHandler.bind(null, actionItem.id)}
             draggable={true}
+            onDragStart={dragStartHandler}
+            onDragOver={dragOverHandler}
+            onDragLeave={dragLeaveHandler}
+            onDrop={dropHandler}
           >
             {Icon ? <Icon {...actionItem.props} /> : parsedIcon}
             <div className={css["active-item-indicator"]}></div>
