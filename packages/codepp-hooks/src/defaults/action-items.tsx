@@ -1,4 +1,3 @@
-import { type CSSProperties } from "react";
 import { type IActionItems } from "..";
 
 export const actionItems: IActionItems = {

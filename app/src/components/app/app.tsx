@@ -3,9 +3,9 @@ import css from "./app.module.css";
 import { useCallback, useState } from "react";
 import { useEvent } from "react-use";
 
-import Titlebar from "@/components/titlebar/titlebar";
-import Statusbar from "@/components/statusbar/statusbar";
-import SplitView from "@/components/split-view/split-view";
+import Titlebar from "@/components/panes/titlebar/titlebar";
+import Statusbar from "@/components/panes/statusbar/statusbar";
+import MainView from "@/components/panes/main-view/main-view";
 
 export default function App() {
   const [windowActive, setWindowActive] = useState(true);
@@ -20,7 +20,7 @@ export default function App() {
   return (
     <div className={`${css.app}`}>
       <Titlebar windowActive={windowActive} />
-      <SplitView />
+      <MainView />
       <Statusbar />
     </div>
   );

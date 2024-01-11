@@ -3,9 +3,9 @@ import css from "./sidebar.module.css";
 import { useState } from "react";
 import { useActionItems } from "@codepp/hooks";
 
-import Menubar from "@/components/menubar/menubar";
-import Actionbar from "@/components/actionbar/actionbar";
-import SidebarFooter from "../sidebar-footer/sidebar-footer";
+import Menubar from "@/components/panes/main-view/sidebar/menubar/menubar";
+import Actionbar from "@/components/panes/main-view/sidebar/actionbar/actionbar";
+import SidebarFooter from "./sidebar-footer/sidebar-footer";
 
 export default function Sidebar() {
   const [activeDragComponent, setActiveDragComponent] =

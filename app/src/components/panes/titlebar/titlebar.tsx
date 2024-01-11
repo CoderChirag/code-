@@ -1,6 +1,6 @@
 import css from "./titlebar.module.css";
 
-import TitleWindow from "@/components/title-window/title-window";
+import TitleWindow from "@/components/panes/titlebar/title-window/title-window";
 
 interface TitlebarProps {
   windowActive: boolean;
