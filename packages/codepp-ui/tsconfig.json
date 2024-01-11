@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": false
   },
   "include": ["./src/index.ts", "./src/icons"],
   "exclude": ["dist", "build", "node_modules"]

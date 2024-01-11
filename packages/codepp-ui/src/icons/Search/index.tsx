@@ -1,13 +1,14 @@
-import { styled } from "@mui/material";
-import MuiSearchIcon from "@mui/icons-material/Search";
+import { type BasicProps } from "..";
 
-const SearchIcon = styled(MuiSearchIcon)<{ tform?: string }>`
-  transform: ${(props) =>
-    props.tform
-      ? `${props.tform} ${
-          props.tform.includes("rotate") ? "" : "rotate(90deg)"
-        }`
-      : "rotate(90deg)"};
-`;
+interface SearchIconProps extends BasicProps {}
+
+function SearchIcon({ className, ...props }: SearchIconProps) {
+  return (
+    <div
+      className={`codicon codicon-search ${className ? className : ""}`}
+      {...props}
+    ></div>
+  );
+}
 
 export default SearchIcon;

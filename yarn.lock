@@ -1425,6 +1425,11 @@
     eslint-plugin-unicorn "^48.0.1"
     prettier-plugin-packagejson "^2.4.5"
 
+"@vscode/codicons@^0.0.35":
+  version "0.0.35"
+  resolved "https://registry.yarnpkg.com/@vscode/codicons/-/codicons-0.0.35.tgz#7424a647f39c6e71c86c1edf12bfc27196c8fba1"
+  integrity sha512-7iiKdA5wHVYSbO7/Mm0hiHD3i4h+9hKUe1O4hISAe/nHhagMwb2ZbFC8jU6d7Cw+JNT2dWXN2j+WHbkhT5/l2w==
+
 "@xobotyi/scrollbar-width@^1.9.5":
   version "1.9.5"
   resolved "https://registry.yarnpkg.com/@xobotyi/scrollbar-width/-/scrollbar-width-1.9.5.tgz#80224a6919272f405b87913ca13b92929bdf3c4d"

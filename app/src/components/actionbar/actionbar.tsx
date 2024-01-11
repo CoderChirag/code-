@@ -20,7 +20,7 @@ interface ActionBarProps {
   setActiveDragOverComponent: Dispatch<SetStateAction<HTMLElement | null>>;
 }
 
-type Icon = ComponentType;
+type Icon = ComponentType<ActionItem["props"]>;
 
 export default function Actionbar({
   actionItems,

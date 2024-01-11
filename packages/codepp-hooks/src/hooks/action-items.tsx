@@ -7,11 +7,8 @@ import {
   PropsWithChildren,
   useState,
 } from "react";
-import {
-  actionItems as defaultActionItems,
-  type ActionItem,
-  type IActionItems,
-} from "../defaults/action-items";
+import { actionItems as defaultActionItems } from "../defaults/action-items";
+import { type ActionItem, type IActionItems } from "..";
 
 type SetActionItems = Dispatch<SetStateAction<IActionItems>>;
 

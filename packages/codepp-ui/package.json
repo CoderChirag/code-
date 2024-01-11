@@ -19,11 +19,15 @@
       "import": "./dist/icons/*/index.js",
       "types": "./dist/icons/*/index.d.ts",
       "require": "./dist/icons/*/index.js"
+    },
+    "./css": {
+      "import": "./dist/css/styles.css",
+      "require": "./dist/css/styles.css"
     }
   },
   "scripts": {
-    "build": "tsup --dts --minify --clean",
-    "dev": "concurrently \"tsup --sourcemap --watch\" \"tsc -w --emitDeclarationOnly\"",
+    "build": "tsup --minify --clean&& tsc --emitDeclarationOnly ",
+    "dev": "concurrently \"tsup --sourcemap --watch\" \"tsc -w --emitDeclarationOnly --declarationMap\"",
     "lint": "eslint . --max-warnings 0",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
@@ -44,6 +48,7 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.2",
-    "@mui/material": "^5.15.2"
+    "@mui/material": "^5.15.2",
+    "@vscode/codicons": "^0.0.35"
   }
 }

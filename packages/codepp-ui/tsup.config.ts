@@ -19,6 +19,10 @@ function getConfig(options: Options): Options[] {
       ...baseConfig,
     },
     {
+      entry: ["src/css/styles.css"],
+      outDir: "dist/css",
+    },
+    {
       entry: ["src/icons/index.ts"],
       outDir: "dist/icons",
       ...baseConfig,

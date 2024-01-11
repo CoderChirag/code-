@@ -1,19 +1,5 @@
-import SearchIcon from "@mui/icons-material/Search";
-
-export interface ActionItem {
-  id: string;
-  label: string;
-  icon: {
-    type: "import" | "parse";
-    icon: string;
-  };
-  props: Record<string, any>;
-}
-
-export interface IActionItems {
-  active: string;
-  actionItems: ActionItem[];
-}
+import { type CSSProperties } from "react";
+import { type IActionItems } from "..";
 
 export const actionItems: IActionItems = {
   active: "explorer",
@@ -23,9 +9,9 @@ export const actionItems: IActionItems = {
       label: "Explorer",
       icon: {
         type: "import",
-        icon: "FileCopyOutlinedIcon",
+        icon: "ExplorerViewIcon",
       },
-      props: {},
+      props: { style: { fontSize: "24px" } },
     },
     {
       id: "search",
@@ -35,7 +21,29 @@ export const actionItems: IActionItems = {
         icon: "SearchIcon",
       },
       props: {
-        tform: "scale(1.3) rotate(85deg)",
+        style: { fontSize: "24px" },
+      },
+    },
+    {
+      id: "source-control",
+      label: "Source Control",
+      icon: {
+        type: "import",
+        icon: "SourceControlIcon",
+      },
+      props: {
+        style: { fontSize: "24px" },
+      },
+    },
+    {
+      id: "extensions",
+      label: "Extensions",
+      icon: {
+        type: "import",
+        icon: "ExtensionsIcon",
+      },
+      props: {
+        style: { fontSize: "24px" },
       },
     },
   ],
