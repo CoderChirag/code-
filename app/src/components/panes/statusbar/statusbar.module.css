@@ -1,4 +1,4 @@
-.statusbar {
+#statusbar {
   width: 100%;
   height: 22px;
   border: 1px solid var(--theme-border);

@@ -41,7 +41,7 @@ export default function SidebarFooter({
 
   return (
     <div
-      className={css["footer-container"]}
+      id={css["footer-container"]}
       onDragOver={dragOverHandler}
       onDragLeave={dragLeaveHandler}
       onDrop={dropHandler}

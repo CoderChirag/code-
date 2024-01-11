@@ -4,7 +4,7 @@ import { MenuIcon } from "@codepp/ui/icons";
 
 export default function Menubar() {
   return (
-    <div className={css.menubar}>
+    <div id={css.menubar}>
       <MenuIcon />
     </div>
   );

@@ -8,12 +8,12 @@ interface TitlebarProps {
 
 export default function Titlebar({ windowActive }: TitlebarProps) {
   return (
-    <header className={`${css.titlebar}`}>
-      <div className={css["titlebar-left"]}></div>
-      <div className={css["titlebar-center"]}>
+    <header id={css.titlebar}>
+      <div id={css["titlebar-left"]}></div>
+      <div id={css["titlebar-center"]}>
         <TitleWindow title="CODE++" windowActive={windowActive} />
       </div>
-      <div className={css["titlebar-right"]}></div>
+      <div id={css["titlebar-right"]}></div>
     </header>
   );
 }

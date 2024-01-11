@@ -1,4 +1,4 @@
-.footer-container {
+#footer-container {
   position: relative;
   height: 100%;
   display: flex;
@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-.footer-container.top::before {
+#footer-container.top::before {
   background-color: var(--theme-sideBar-active-foreground);
   content: "";
   position: absolute;

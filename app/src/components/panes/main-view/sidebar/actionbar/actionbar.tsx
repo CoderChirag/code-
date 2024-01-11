@@ -117,7 +117,7 @@ export default function Actionbar({
   }
 
   return (
-    <ul className={css.actionbar}>
+    <ul id={css.actionbar}>
       {actionItems.map((actionItem) => {
         const Icon = iconComponents[actionItem.id].imported;
         const parsedIcon = iconComponents[actionItem.id].parsed;

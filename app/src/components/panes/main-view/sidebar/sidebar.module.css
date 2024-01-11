@@ -1,4 +1,4 @@
-.sidebar {
+#sidebar {
   width: 48px;
   height: 100%;
   background-color: var(--theme-sidebar-background);
@@ -6,9 +6,4 @@
   border-right: 1px solid var(--theme-border);
   display: flex;
   flex-direction: column;
-}
-
-.search-icon {
-  font-size: 22px;
-  transform: scale(1.5) rotate(82deg);
 }

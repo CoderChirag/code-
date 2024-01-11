@@ -21,7 +21,7 @@ export default function Sidebar() {
   const { actionItems, active } = actionItemsState;
 
   return (
-    <aside className={css.sidebar}>
+    <aside id={css.sidebar}>
       <Menubar />
       <Actionbar
         actionItems={actionItems}
