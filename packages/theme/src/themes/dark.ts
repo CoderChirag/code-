@@ -8,6 +8,7 @@ const basicPalette: BasicPalette = {
 
 export const darkColorPalette: ColorPalette = {
   ...basicPalette,
+  resizer: "#1f6feb",
   titleBar: {
     background: "#00040a",
     foreground: basicPalette.foreground,
@@ -57,7 +58,18 @@ export const darkColorPalette: ColorPalette = {
       foreground: "#ffffff",
     },
   },
-  // explorer: { ...basicDarkPalette },
+  solutionBar: {
+    background: "#010409",
+    foreground: "#fff",
+    selection: {
+      background: "rgba(110, 118, 129, 0.4)",
+      foreground: "#1f6feb",
+      border: "#1f6feb",
+    },
+    hover: {
+      background: "rgba(110, 118, 129, 0.1)",
+    },
+  },
   // editorGroup: { ...basicDarkPalette },
   // editor: { ...basicDarkPalette },
   // panel: { ...basicDarkPalette },

@@ -22,6 +22,7 @@ export interface BasicPalette {
   border: Color;
 }
 export interface ColorPalette extends BasicPalette {
+  resizer: Color;
   titleBar: Omit<BasicPalette, "border"> & {
     titleWindow: BasicPalette & {
       hover: BasicPalette;
@@ -43,7 +44,12 @@ export interface ColorPalette extends BasicPalette {
       foreground: Color;
     };
   };
-  // explorer: BasicPalette;
+  solutionBar: Omit<BasicPalette, "border"> & {
+    selection: BasicPalette;
+    hover: {
+      background: Color;
+    };
+  };
   // editorGroup: BasicPalette;
   // editor: BasicPalette;
   // panel: BasicPalette;

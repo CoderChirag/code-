@@ -3,11 +3,10 @@ import { type FC, type PropsWithChildren } from "react";
 import { PagePropsProvider } from "./hooks/page-props";
 import NextApp, { type AppInitialProps, type AppContext } from "next/app";
 import axios from "axios";
-import {
-  type IActionItems,
-  actionItems as defaultActionItems,
-} from "./defaults/action-items";
+import { actionItems as defaultActionItems } from "./defaults/action-items";
+
 import { ActionItemsProvider } from "./hooks/action-items";
+import { IActionItems } from ".";
 
 interface IHooksProviderProps {
   theme: ITheme;
