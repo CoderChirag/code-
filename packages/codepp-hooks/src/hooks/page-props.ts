@@ -1,7 +1,5 @@
-import { createContext, useContext } from "react";
-
-const PagePropsContext = createContext<Record<string, any>>({});
-export const PagePropsProvider = PagePropsContext.Provider;
+import { useContext } from "react";
+import { PagePropsContext } from "../providers/page-props";
 
 export function usePageProps() {
   return useContext(PagePropsContext);

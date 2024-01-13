@@ -1,45 +1,10 @@
-import {
-  type Dispatch,
-  type SetStateAction,
-  createContext,
-  useContext,
-  FC,
-  PropsWithChildren,
-  useState,
-} from "react";
+import { useContext } from "react";
 import { actionItems as defaultActionItems } from "../defaults/action-items";
 import { type ActionItem, type IActionItems } from "..";
-
-type SetActionItems = Dispatch<SetStateAction<IActionItems>>;
-
-const ActionItemsContext = createContext<[IActionItems, SetActionItems]>([
-  { active: "", actionItems: [] },
-  () => undefined,
-]);
-
-interface IProviderProps {
-  actionItems: IActionItems;
-}
-
-export const ActionItemsProvider: FC<PropsWithChildren<IProviderProps>> = ({
-  children,
-  actionItems,
-}) => {
-  const [actionItemsState, setActionItemsState] = useState<IActionItems>({
-    active: actionItems.active,
-    actionItems: actionItems.actionItems.map((item) => ({
-      ...item,
-      icon: item.icon,
-    })),
-  });
-  return (
-    <ActionItemsContext.Provider
-      value={[actionItemsState, setActionItemsState]}
-    >
-      {children}
-    </ActionItemsContext.Provider>
-  );
-};
+import {
+  type SetActionItems,
+  VirtualAppContext,
+} from "../providers/virtual-app";
 
 class ActionItems {
   #state: IActionItems;
@@ -98,6 +63,6 @@ class ActionItems {
 }
 
 export function useActionItems() {
-  const context = useContext(ActionItemsContext);
-  return new ActionItems(context);
+  const { virtualAppState, setActionItems } = useContext(VirtualAppContext);
+  return new ActionItems([virtualAppState.actionItems, setActionItems]);
 }

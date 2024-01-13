@@ -9,20 +9,16 @@ interface AppProps extends NextAppProps, IWithHooks {}
 function App({
   Component,
   pageProps,
-  theme,
-  actionItems,
+  virtualAppState,
   cookies,
   userAgent,
 }: AppProps) {
+  const theme = virtualAppState.theme;
   const colors = buildCSSVars(theme.colors as Record<string, any>, "theme");
   const fonts = buildCSSVars(theme.fonts as Record<string, any>, "theme-font");
   const fontImports = buildFontImports(theme.fonts.urls);
   return (
-    <HooksProviders
-      theme={theme}
-      pageProps={pageProps}
-      actionItems={actionItems}
-    >
+    <HooksProviders pageProps={pageProps} virtualAppState={virtualAppState}>
       <style global jsx>{`
         ${fontImports}
       `}</style>

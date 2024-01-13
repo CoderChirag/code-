@@ -1,41 +1,35 @@
-import { ThemeProvider, type ITheme, ThemeBuilder } from "@codepp/theme";
 import { type FC, type PropsWithChildren } from "react";
-import { PagePropsProvider } from "./hooks/page-props";
+import { PagePropsProvider } from "./page-props";
 import NextApp, { type AppInitialProps, type AppContext } from "next/app";
 import axios from "axios";
-import { actionItems as defaultActionItems } from "./defaults/action-items";
+import { virtualAppState as defaultVirtualAppState } from "../defaults/virtual-app";
 
-import { ActionItemsProvider } from "./hooks/action-items";
-import { IActionItems } from ".";
+import { VirtualAppProvider } from "./virtual-app";
+import { VirtualAppState } from "..";
 
 interface IHooksProviderProps {
-  theme: ITheme;
   pageProps: Record<string, any>;
-  actionItems: IActionItems;
+  virtualAppState: VirtualAppState;
 }
 
 export const HooksProviders: FC<PropsWithChildren<IHooksProviderProps>> = ({
   children,
-  theme,
   pageProps,
-  actionItems,
+  virtualAppState,
 }) => {
   return (
     <>
-      <ThemeProvider initialTheme={theme}>
-        <ActionItemsProvider actionItems={actionItems}>
-          <PagePropsProvider value={pageProps}>{children}</PagePropsProvider>
-        </ActionItemsProvider>
-      </ThemeProvider>
+      <VirtualAppProvider initialAppState={virtualAppState}>
+        <PagePropsProvider value={pageProps}>{children}</PagePropsProvider>
+      </VirtualAppProvider>
     </>
   );
 };
 
 export interface IWithHooks {
-  theme: ITheme;
   cookies: Record<string, any>;
   userAgent: string | undefined;
-  actionItems: IActionItems;
+  virtualAppState: VirtualAppState;
 }
 
 export function withHooks(App: typeof NextApp) {
@@ -47,8 +41,6 @@ export function withHooks(App: typeof NextApp) {
         ctx: { req: { cookies: Record<string, any> } };
       }
     ).ctx?.req?.cookies;
-
-    let theme: ITheme = new ThemeBuilder("dark").getTheme();
 
     if (cookies && cookies?.["X-SESSION-ID"]) {
       const sessionId = cookies["X-SESSION-ID"];
@@ -73,8 +65,7 @@ export function withHooks(App: typeof NextApp) {
     const data: IWithHooks = {
       cookies,
       userAgent,
-      theme,
-      actionItems: defaultActionItems,
+      virtualAppState: defaultVirtualAppState,
     };
     if (getInitialProps) {
       const appProps = await getInitialProps(appContext);

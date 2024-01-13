@@ -1,3 +1,4 @@
+import { ITheme } from "@codepp/theme";
 import { type CSSProperties } from "react";
 
 export interface ActionItem {
@@ -16,4 +17,10 @@ export interface ActionItem {
 export interface IActionItems {
   active: string;
   actionItems: ActionItem[];
+}
+
+export interface VirtualAppState {
+  title: string;
+  theme: ITheme;
+  actionItems: IActionItems;
 }
