@@ -1,11 +1,23 @@
-import { defineConfig } from "tsup";
+import { defineConfig, type Options } from "tsup";
 import { devDependencies } from "./package.json";
 
+const baseConfig: Options = {
+  format: ["cjs", "esm"],
+  external: [...Object.keys(devDependencies)],
+  tsconfig: "tsconfig.json",
+};
+
 export default defineConfig((options) => {
-  return {
-    entry: ["src/index.ts"],
-    format: ["cjs", "esm"],
-    external: [...Object.keys(devDependencies)],
-    tsconfig: "tsconfig.json",
-  };
+  return [
+    {
+      entry: ["src/index.ts"],
+      outDir: "dist",
+      ...baseConfig,
+    },
+    {
+      entry: ["src/utils/index.ts"],
+      outDir: "dist/utils",
+      ...baseConfig,
+    },
+  ];
 });

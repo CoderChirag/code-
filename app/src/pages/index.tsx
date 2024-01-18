@@ -1,6 +1,6 @@
 import App from "@/components/app/app";
 import { useTheme } from "@codepp/hooks";
-import { buildCSSVars, buildFontImports } from "@codepp/theme";
+import { buildCSSVars, buildFontImports } from "@codepp/hooks/utils";
 
 export default function Home() {
   const theme = useTheme();
