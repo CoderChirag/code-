@@ -1,0 +1,52 @@
+#editor-container-outer {
+  flex-grow: 1;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-top: 15px;
+  background-color: var(--theme-editor-background);
+}
+
+#editor-container-inner {
+  position: relative;
+  top: 0px;
+  display: flex;
+  flex-wrap: nowrap;
+  min-height: 100%;
+}
+
+#editor-container-inner * {
+  font-family: var(--theme-font-editor-font);
+  font-size: var(--theme-font-editor-size);
+  line-height: var(--theme-font-editor-lineHeight);
+}
+
+#line-number-container {
+  min-height: 100%;
+  width: 45px;
+}
+
+#line-number-container .line-number {
+  width: 100%;
+  color: var(--theme-editor-lineNumber-foreground);
+  text-align: center;
+  cursor: default;
+  user-select: none;
+}
+
+#editor {
+  flex-grow: 1;
+  min-height: 100%;
+  position: relative;
+}
+
+.editor-line {
+  width: 100%;
+  color: var(--theme-editor-foreground);
+  cursor: text;
+  user-select: none;
+}
+
+.code {
+  vertical-align: top;
+}

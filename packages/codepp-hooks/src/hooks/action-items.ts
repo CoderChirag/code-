@@ -63,6 +63,6 @@ class ActionItems {
 }
 
 export function useActionItems() {
-  const { virtualAppState, setActionItems } = useContext(VirtualAppContext);
-  return new ActionItems([virtualAppState.actionItems, setActionItems]);
+  const { actionItems, setActionItems } = useContext(VirtualAppContext);
+  return new ActionItems([actionItems, setActionItems]);
 }

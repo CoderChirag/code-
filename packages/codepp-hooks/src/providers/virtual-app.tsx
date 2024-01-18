@@ -1,5 +1,4 @@
 import {
-  default as React,
   type Dispatch,
   type FC,
   type SetStateAction,
@@ -13,9 +12,14 @@ export type SetActionItems = Dispatch<
   SetStateAction<VirtualAppState["actionItems"]>
 >;
 
+export type SetTheme = Dispatch<SetStateAction<VirtualAppState["theme"]>>;
+
 interface IVirtualAppContext {
+  theme: VirtualAppState["theme"];
+  actionItems: VirtualAppState["actionItems"];
   virtualAppState: VirtualAppState;
   setActionItems: SetActionItems;
+  setTheme: SetTheme;
 }
 
 export const VirtualAppContext = createContext<IVirtualAppContext>(
@@ -32,6 +36,9 @@ export const VirtualAppProvider: FC<PropsWithChildren<IProviderProps>> = ({
 }) => {
   const [appState, setAppState] = useState<VirtualAppState>(initialAppState);
 
+  const theme = appState.theme;
+  const actionItems = appState.actionItems;
+
   const setActionItems: SetActionItems = (value) => {
     if (typeof value === "function")
       setAppState((prev) => ({
@@ -41,9 +48,21 @@ export const VirtualAppProvider: FC<PropsWithChildren<IProviderProps>> = ({
     else setAppState((prev) => ({ ...prev, actionItems: value }));
   };
 
+  const setTheme: SetTheme = (value) => {
+    if (typeof value === "function")
+      setAppState((prev) => ({ ...prev, theme: value(prev.theme) }));
+    else setAppState((prev) => ({ ...prev, theme: value }));
+  };
+
   return (
     <VirtualAppContext.Provider
-      value={{ virtualAppState: appState, setActionItems }}
+      value={{
+        virtualAppState: appState,
+        theme,
+        actionItems,
+        setActionItems,
+        setTheme,
+      }}
     >
       {children}
     </VirtualAppContext.Provider>

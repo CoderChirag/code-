@@ -25,11 +25,12 @@ export function useHorizontalResize(
   function hResizeMouseDownHandler(e: React.MouseEvent<HTMLElement>) {
     e.stopPropagation();
     targetClientX.current = e.clientX;
-    window.addEventListener("mousemove", resizeMouseMoveHandler);
-    window.addEventListener("mouseup", resizeMouseUpHandler);
+    window.addEventListener("mousemove", resizeStartHandler);
+    window.addEventListener("mouseup", resizeEndHandler);
+    document.body.addEventListener("mouseleave", resizeEndHandler);
   }
 
-  function resizeMouseMoveHandler(e: MouseEvent) {
+  function resizeStartHandler(e: MouseEvent) {
     const clientX = e.clientX;
     const initialX = targetClientX.current;
     targetClientX.current = clientX;
@@ -60,10 +61,11 @@ export function useHorizontalResize(
     return newWidth;
   }
 
-  function resizeMouseUpHandler(e: MouseEvent) {
+  function resizeEndHandler(e: MouseEvent) {
     targetClientX.current = 0;
-    window.removeEventListener("mousemove", resizeMouseMoveHandler);
-    window.removeEventListener("mouseup", resizeMouseUpHandler);
+    window.removeEventListener("mousemove", resizeStartHandler);
+    window.removeEventListener("mouseup", resizeEndHandler);
+    document.body.removeEventListener("mouseleave", resizeEndHandler);
   }
 
   return { width, cursor, hResizeMouseDownHandler };

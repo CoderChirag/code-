@@ -1,9 +1,8 @@
-import { type Dispatch, type SetStateAction } from "react";
+import { CSSProperties, type Dispatch, type SetStateAction } from "react";
 
 export type CSSVar = `--${string}`;
 
 export interface ThemeContextType {
-  name: string;
   theme: ITheme;
   setTheme: Dispatch<SetStateAction<ITheme>>;
 }
@@ -50,8 +49,30 @@ export interface ColorPalette extends BasicPalette {
       background: Color;
     };
   };
-  // editorGroup: BasicPalette;
-  // editor: BasicPalette;
+  editorGroup: Omit<BasicPalette, "border"> & {
+    primary: Omit<BasicPalette, "border">;
+    secondary: {
+      background: Color;
+    };
+    active: {
+      foreground: Color;
+    };
+  };
+  editor: Omit<BasicPalette, "border"> & {
+    active: {
+      background: Color;
+    };
+    selection: {
+      background: Color;
+    };
+    cursorColor: Color;
+    lineNumber: {
+      foreground: Color;
+      active: {
+        foreground: Color;
+      };
+    };
+  };
   // panel: BasicPalette;
 }
 
@@ -60,8 +81,12 @@ export interface Fonts {
     name: string;
     url: string;
   }[];
-  primary: string;
-  editor: string;
+  primary: CSSProperties["fontFamily"];
+  editor: {
+    font: CSSProperties["fontFamily"];
+    size: `${number}px`;
+    lineHeight: `${number}px`;
+  };
 }
 
 export interface ITheme {

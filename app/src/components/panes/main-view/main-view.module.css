@@ -4,3 +4,8 @@
   display: flex;
   flex-wrap: nowrap;
 }
+#editor-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}

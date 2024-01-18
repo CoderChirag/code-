@@ -1,0 +1,6 @@
+#editor-group-container {
+  width: 100%;
+  height: 35px;
+  border-bottom: 1px solid var(--theme-border);
+  background-color: var(--theme-editorGroup-background);
+}

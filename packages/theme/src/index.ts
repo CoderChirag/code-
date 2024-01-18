@@ -1,4 +1,5 @@
-export { useTheme, ThemeProvider } from "./theme";
+export { ThemeProvider } from "./provider";
+export { type CustomThemeContextType, useTheme } from "./use-theme";
 
 export { ThemeBuilder } from "./themes";
 

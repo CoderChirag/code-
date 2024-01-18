@@ -17,8 +17,11 @@ export class ThemeBuilder {
         urls: [],
         primary:
           "-apple-system,BlinkMacSystemFont,Segoe WPC,Segoe UI,system-ui,Ubuntu,Droid Sans,sans-serif",
-        editor:
-          '"SF Mono",Monaco,Menlo,Courier,Consolas,"Ubuntu Mono","Liberation Mono","DejaVu Sans Mono","Courier New",monospace',
+        editor: {
+          font: '"SF Mono",Monaco,Menlo,Courier,Consolas,"Ubuntu Mono","Liberation Mono","DejaVu Sans Mono","Courier New",monospace',
+          size: "14px",
+          lineHeight: "22px",
+        },
       },
     };
 
