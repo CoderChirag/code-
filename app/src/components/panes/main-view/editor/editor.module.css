@@ -47,6 +47,10 @@
   user-select: none;
 }
 
+.editor-line.active {
+  background-color: var(--theme-editor-active-background);
+}
+
 .code {
   vertical-align: top;
 }

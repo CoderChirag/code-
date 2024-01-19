@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type Dispatch, type SetStateAction, useState, useEffect } from "react";
 
 export interface Coordinates {
   row: number;
@@ -12,12 +12,22 @@ interface Content {
 
 export function useEditor(
   initialContent: Content[] = [{ content: "" }],
-  initialCursorPos: Coordinates = { row: 1, col: 1 }
+  initialCursorPos: Coordinates | null = null
 ) {
   if (initialContent.length === 0) initialContent = [{ content: "" }];
 
   const [content, setContent] = useState<Content[]>(initialContent);
-  const [cursorPos, setCursorPos] = useState<Coordinates>(initialCursorPos);
+  const [cursorPos, setCursorPos] = useState<Coordinates | null>(
+    initialCursorPos
+  );
+  const [activeLineNum, setActiveLineNum] = useState<number | null>(
+    initialCursorPos?.row ?? null
+  );
 
-  return { content, cursorPos, setContent, setCursorPos };
+  useEffect(() => {
+    if (!cursorPos) setActiveLineNum(null);
+    else setActiveLineNum(cursorPos.row);
+  }, [cursorPos]);
+
+  return { content, cursorPos, activeLineNum, setContent, setCursorPos };
 }

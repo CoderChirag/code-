@@ -17,8 +17,7 @@
     "html-react-parser": "^5.0.11",
     "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18",
-    "react-use": "^17.4.2"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",

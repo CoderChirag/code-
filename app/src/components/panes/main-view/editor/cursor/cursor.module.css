@@ -2,7 +2,7 @@
   position: absolute;
   top: 0;
   left: 0ch;
-  width: 1.5px;
+  width: 2px;
   height: calc(var(--theme-font-editor-lineHeight) + 1px);
   background-color: var(--theme-editor-cursorColor);
   overflow: hidden;

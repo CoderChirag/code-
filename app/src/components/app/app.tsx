@@ -1,7 +1,7 @@
 import css from "./app.module.css";
 
 import { useCallback, useState } from "react";
-import { useEvent } from "react-use";
+// import { useEvent } from "react-use";
 
 import Titlebar from "@/components/panes/titlebar/titlebar";
 import Statusbar from "@/components/panes/statusbar/statusbar";
@@ -14,8 +14,8 @@ export default function App() {
     setWindowActive(isActive);
   }, []);
 
-  useEvent("blur", handleWindowActive.bind(null, false));
-  useEvent("focus", handleWindowActive.bind(null, true));
+  // useEvent("blur", handleWindowActive.bind(null, false));
+  // useEvent("focus", handleWindowActive.bind(null, true));
 
   return (
     <div className={`${css.app}`}>
