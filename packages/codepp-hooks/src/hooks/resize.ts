@@ -23,7 +23,6 @@ export function useHorizontalResize(
   const [cursor, setCursor] = useState<HResizeCursorType>("col-resize");
 
   function hResizeMouseDownHandler(e: React.MouseEvent<HTMLElement>) {
-    e.stopPropagation();
     targetClientX.current = e.clientX;
     window.addEventListener("mousemove", resizeStartHandler);
     window.addEventListener("mouseup", resizeEndHandler);
