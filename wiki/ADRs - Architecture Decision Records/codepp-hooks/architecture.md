@@ -157,4 +157,4 @@ This package provides all the Context Providers, custom hooks, and most importan
 
     <br>
 
-- Also, to make the core application (`@codepp/app`) completely independent of `@codepp/theme`, the utility functions from `@codepp/theme` such as: `buildCSSVars()`, `buildFontImports()` etc, are directly imported from inside `@codepp/hooks/utils`
+- Also, to make the core application (`@codepp/app`) completely independent of `@codepp/theme`, the utility functions from `@codepp/theme` such as: `buildCSSVars()`, `buildFontImports()` etc, are directly exported from inside `@codepp/hooks/utils`
