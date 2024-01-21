@@ -8,3 +8,4 @@ export { useHorizontalResize } from "./hooks/resize";
 export { useTitle } from "./hooks/title";
 export { type Coordinates, useEditor } from "./hooks/editor";
 export { useTheme } from "./hooks/theme";
+export { useEvent } from "./hooks/event";
