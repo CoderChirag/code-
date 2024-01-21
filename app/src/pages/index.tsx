@@ -1,6 +1,7 @@
 import App from "@/components/app/app";
 import { buildCSSVars, buildFontImports } from "@codepp/hooks/utils";
 import { ITheme } from "@codepp/theme";
+import Head from "next/head";
 
 interface PageProps {
   theme: ITheme;
@@ -12,19 +13,29 @@ export default function Home({ theme }: PageProps) {
   const fontImports = buildFontImports(theme.fonts.urls);
 
   return (
-    <div className="app-container">
-      <style global jsx>{`
-        ${fontImports}
-      `}</style>
-      <style global jsx>
-        {`
-          :root {
-            ${colors}
-            ${fonts}
-          }
-        `}
-      </style>
-      <App />
-    </div>
+    <>
+      <Head>
+        <title>Code++</title>
+        <meta
+          name="description"
+          content="A cool looking Web based Code Editor."
+        />
+        {/* <link rel="icon" href="/favicon.ico" /> */}
+      </Head>
+      <div className="app-container">
+        <style global jsx>{`
+          ${fontImports}
+        `}</style>
+        <style global jsx>
+          {`
+            :root {
+              ${colors}
+              ${fonts}
+            }
+          `}
+        </style>
+        <App />
+      </div>
+    </>
   );
 }

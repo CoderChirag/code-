@@ -1,111 +1,122 @@
-import { EventEmitter } from "node:events";
+type Target = Element | HTMLElement | Window | Document;
 
-type EventName =
-  | keyof DocumentEventMap
-  | keyof WindowEventMap
-  | keyof HTMLElementEventMap
-  | "off";
-type Target = Document | Window | HTMLElement;
-type EventHandler = (event: Event) => void;
+type TEventMapKeys<T> = T extends HTMLElement
+  ? keyof HTMLElementEventMap
+  : T extends Element
+    ? keyof ElementEventMap
+    : T extends Window
+      ? keyof WindowEventMap
+      : keyof DocumentEventMap;
 
-class VirtualEvent extends EventEmitter {
-  static interceptors: Record<EventName, EventHandler[]> = {} as Record<
-    EventName,
-    EventHandler[]
+class VirtualDOMEventEmitter {
+  #events: Record<
+    TEventMapKeys<Target>,
+    { handler: EventListener; emitHandler: EventListener; target: Target }[]
   >;
+  #globalEvents: Record<TEventMapKeys<Target>, EventListener[]>;
 
   constructor() {
-    super();
+    this.#events = {} as Record<
+      TEventMapKeys<Target>,
+      { handler: EventListener; emitHandler: EventListener; target: Target }[]
+    >;
+    this.#globalEvents = {} as Record<TEventMapKeys<Target>, EventListener[]>;
   }
 
-  emit(
-    eventName: EventName,
-    event: Event,
-    interceptorsAllowed: boolean
-  ): boolean;
-  emit(eventName: "off", target: Target): boolean;
-  emit(
-    eventName: EventName,
-    event: Event | Target,
-    interceptorsAllowed: boolean = true
-  ) {
-    if (eventName === "off") {
-      return super.emit(eventName, event);
-    }
-
-    const emitResult = super.emit(eventName, event);
-
-    if (interceptorsAllowed) {
-      if (!VirtualEvent.interceptors[eventName]) return emitResult;
-      VirtualEvent.interceptors[eventName].forEach((interceptor) => {
-        interceptor(event as Event);
-      });
-    }
-
-    return emitResult;
-  }
-}
-
-const virtualEvent = new VirtualEvent();
-
-export function useEvent() {
-  function addEventListener(
-    eventName: EventName,
-    target: Target,
-    handler: EventHandler,
-    interceptorsAllowed: boolean = true
-  ) {
-    const newHandler = (event: Event) => {
-      if (event.target !== target) return;
-      handler(event);
-    };
-
-    virtualEvent.on(eventName, newHandler);
+  public addEventListener: <T extends Target>(
+    target: T,
+    eventName: TEventMapKeys<T>,
+    handler: EventListener
+  ) => void = (target, eventName, handler) => {
+    if (!this.#events[eventName]) this.#events[eventName] = [];
+    if (
+      this.#events[eventName].findIndex(
+        (item) => item.target === target && item.handler === handler
+      ) !== -1
+    )
+      return;
 
     const emitHandler = (event: Event) => {
-      virtualEvent.emit(eventName, event, interceptorsAllowed);
+      this.emit(eventName, target, event, handler);
     };
-
-    const offHandler = (selector: Target) => {
-      if (selector !== target) return;
-      target.removeEventListener(eventName, emitHandler);
-      console.log("removed", eventName, target);
-      virtualEvent.off(eventName, newHandler);
-      virtualEvent.off("off", offHandler);
-    };
-
-    virtualEvent.on("off", offHandler);
-
+    this.#events[eventName].push({ handler, emitHandler, target });
     target.addEventListener(eventName, emitHandler);
+  };
+
+  removeEventListener: <T extends Target>(
+    target: T,
+    eventName: TEventMapKeys<T>,
+    handler: EventListener
+  ) => void = (target, eventName, handler) => {
+    if (!this.#events[eventName]) return;
+
+    const { emitHandler } =
+      this.#events[eventName].find(
+        (item) => item.target === target && item.handler === handler
+      ) || {};
+
+    this.#events[eventName] = this.#events[eventName].filter(
+      (item) => item.target !== target && item.handler !== handler
+    );
+
+    if (emitHandler) target.removeEventListener(eventName, emitHandler);
+  };
+
+  emit<T extends Target>(
+    eventName: TEventMapKeys<T>,
+    target: T,
+    event: Event,
+    handler: EventListener
+  ): void {
+    if (!this.#events[eventName]) return;
+
+    this.#events[eventName]
+      .filter((item) => item.target === target && item.handler === handler)
+      .forEach(({ handler }) => handler(event));
+
+    this.#globalEvents?.[eventName]?.forEach((handler) => handler(event));
   }
 
-  function removeEventListener(
-    eventName: EventName,
-    target: Target,
-    handler: EventHandler
-  ) {
-    virtualEvent.emit("off", target);
-  }
+  addGlobalEventListener: (
+    eventName: TEventMapKeys<Target>,
+    handler: EventListener
+  ) => void = (eventName, handler) => {
+    if (!this.#globalEvents[eventName]) this.#globalEvents[eventName] = [];
 
-  function addInterceptor(eventName: EventName, handler: EventHandler) {
-    if (!VirtualEvent.interceptors[eventName])
-      VirtualEvent.interceptors[eventName] = [];
+    if (this.#globalEvents[eventName].includes(handler)) return;
 
-    VirtualEvent.interceptors[eventName].push(handler);
-  }
+    this.#globalEvents[eventName].push(handler);
+  };
 
-  function removeInterceptor(eventName: EventName, handler: EventHandler) {
-    if (!VirtualEvent.interceptors[eventName]) return;
+  removeGlobalEventListener: (
+    eventName: TEventMapKeys<Target>,
+    handler: EventListener
+  ) => void = (eventName, handler) => {
+    if (!this.#globalEvents[eventName]) return;
 
-    VirtualEvent.interceptors[eventName] = VirtualEvent.interceptors[
-      eventName
-    ].filter((interceptor) => interceptor !== handler);
-  }
+    this.#globalEvents[eventName] = this.#globalEvents[eventName].filter(
+      (item) => item !== handler
+    );
+  };
+}
+
+let virtualDOMEventEmitter: VirtualDOMEventEmitter;
+
+export function useEvent() {
+  if (!virtualDOMEventEmitter)
+    virtualDOMEventEmitter = new VirtualDOMEventEmitter();
+
+  const {
+    addEventListener,
+    removeEventListener,
+    addGlobalEventListener,
+    removeGlobalEventListener,
+  } = virtualDOMEventEmitter;
 
   return {
     addEventListener,
     removeEventListener,
-    addInterceptor,
-    removeInterceptor,
+    addGlobalEventListener,
+    removeGlobalEventListener,
   };
 }

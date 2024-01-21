@@ -1,6 +1,5 @@
 import css from "./editor.module.css";
-import { useCallback, useEffect } from "react";
-import parse from "html-react-parser";
+import { type MouseEventHandler, useCallback, useEffect } from "react";
 import { useEditor } from "@codepp/hooks";
 import Cursor from "./cursor/cursor";
 
@@ -11,14 +10,30 @@ export default function Editor() {
     { content: "a&nbsp;bcd&nbsp;1234567" },
   ]);
 
+  function handleEditorFocus(e: React.MouseEvent) {
+    const row = e.currentTarget.children.length - 1;
+    const col =
+      document.querySelectorAll<HTMLDivElement>(
+        `.${css["editor-line-code-container"]}`
+      )[row - 1]?.children.length + 1 || 1;
+    setCursorPos({
+      row,
+      col,
+    });
+  }
+
   function handleEditorLineFocus(e: React.MouseEvent) {
-    const col = (e.target as HTMLElement).children.length + 1;
+    e.stopPropagation();
     const row = parseInt((e.target as HTMLElement).dataset.row as string);
+    const col =
+      document.querySelectorAll<HTMLDivElement>(
+        `.${css["editor-line-code-container"]}`
+      )[row - 1]?.children.length + 1 || 1;
     setCursorPos({ row, col });
   }
 
-  const handleEditorSpanFocus = useCallback(
-    (e: MouseEvent) => {
+  const handleEditorSpanFocus: MouseEventHandler = useCallback(
+    (e) => {
       e.stopPropagation();
       const target = e.target as HTMLElement;
       const targetRect = target.getBoundingClientRect();
@@ -33,29 +48,21 @@ export default function Editor() {
     [setCursorPos]
   );
 
+  const handleEditorOutFocus = useCallback(
+    (e: MouseEvent) => {
+      if (!(e.target as Element)?.closest(`#${css["editor"]}`))
+        setCursorPos(null);
+    },
+    [setCursorPos]
+  );
+
   useEffect(() => {
-    console.log("editor use effect running");
-    const selectors = document.querySelectorAll(`.${css["code"]}`)!;
+    document.addEventListener("click", handleEditorOutFocus);
 
-    selectors.forEach((selector) => {
-      selector.removeEventListener(
-        "click",
-        handleEditorSpanFocus as (e: Event) => void
-      );
-      selector.addEventListener(
-        "click",
-        handleEditorSpanFocus as (e: Event) => void
-      );
-    });
-
-    return () =>
-      selectors.forEach((selector) =>
-        selector.removeEventListener(
-          "click",
-          handleEditorSpanFocus as (e: Event) => void
-        )
-      );
-  }, [content, handleEditorSpanFocus]);
+    return () => {
+      document.removeEventListener("click", handleEditorOutFocus);
+    };
+  }, [handleEditorOutFocus]);
 
   return (
     <div id={css["editor-container-outer"]}>
@@ -67,36 +74,59 @@ export default function Editor() {
             </div>
           ))}
         </div>
-        <div id={css["editor"]}>
+        <div id={css["editor"]} onClick={handleEditorFocus}>
           {content.map(({ content: line }, lineNum) => (
             <div
               key={lineNum + 1}
               className={`${css["editor-line"]} ${
                 activeLineNum === lineNum + 1 ? css["active"] : ""
               }`}
-              onClick={handleEditorLineFocus}
               data-row={lineNum + 1}
+              onClick={(e) => e.stopPropagation()}
             >
-              {parse(
-                line
-                  .split("&nbsp;")
-                  .map((phrase) =>
-                    phrase
-                      .split("")
-                      .map(
-                        (char) =>
-                          `<span className=${css["code"]} data-row="${
-                            lineNum + 1
-                          }" >${char}</span>`
-                      )
-                      .join("")
-                  )
-                  .join(
-                    `<span className=${css["code"]} data-row="${
-                      lineNum + 1
-                    }">&nbsp;</span>`
-                  )
-              )}
+              <div
+                className={css["editor-line-code-container"]}
+                data-row={lineNum + 1}
+              >
+                {line.split("&nbsp;").map((phrase, phraseInd) =>
+                  phraseInd < line.split("&nbsp;").length - 1
+                    ? [
+                        phrase.split("").map((char, charInd) => (
+                          <span
+                            key={`${lineNum}_${phraseInd}_${charInd}`}
+                            className={css["code"]}
+                            data-row={lineNum + 1}
+                            onClick={handleEditorSpanFocus}
+                          >
+                            {char}
+                          </span>
+                        )),
+                        <span
+                          key={`${lineNum}_${phraseInd}_space`}
+                          className={css["code"]}
+                          data-row={lineNum + 1}
+                          onClick={handleEditorSpanFocus}
+                        >
+                          &nbsp;
+                        </span>,
+                      ]
+                    : phrase.split("").map((char, charInd) => (
+                        <span
+                          key={`${lineNum}_${phraseInd}_${charInd}`}
+                          className={css["code"]}
+                          data-row={lineNum + 1}
+                          onClick={handleEditorSpanFocus}
+                        >
+                          {char}
+                        </span>
+                      ))
+                )}
+              </div>
+              <div
+                className={css["editor-line-nocode-container"]}
+                data-row={lineNum + 1}
+                onClick={handleEditorLineFocus}
+              ></div>
             </div>
           ))}
           <Cursor cursorPos={cursorPos} />

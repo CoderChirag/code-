@@ -45,10 +45,20 @@
   color: var(--theme-editor-foreground);
   cursor: text;
   user-select: none;
+  display: flex;
 }
 
 .editor-line.active {
   background-color: var(--theme-editor-active-background);
+}
+
+.editor-line-code-container {
+  display: inline-block;
+}
+
+.editor-line-nocode-container {
+  display: inline-block;
+  flex-grow: 1;
 }
 
 .code {
